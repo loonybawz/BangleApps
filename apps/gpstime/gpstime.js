@@ -6,8 +6,7 @@ Bangle.setLCDTimeout(0);
 g.clear();
 
 var fix;
-Bangle.setGPSPower(1);
-Bangle.on('GPS',function(f) {
+gpsTime = function(f) {
   fix = f;
   g.reset(1);
   g.setFont("6x8",2);
@@ -24,8 +23,6 @@ Bangle.on('GPS',function(f) {
   g.drawString(fix.satellites+" satellites",170,80);
 
   g.clearRect(0,100,239,239);
-  var t = ["","","","---",""];
-  if (fix.time!==undefined)
     t = fix.time.toString().split(" ");
     /*
  [
@@ -57,7 +54,26 @@ Bangle.on('GPS',function(f) {
     g.drawString("Set",230,120);
     g.setFontAlign(0,0);
   }
+};
+
+function test(){
+  gpsTime({ "lat": 0,
+  "lon": 0,
+  "alt": 0,
+  "speed": 0,
+  "course": 0,
+  "time": new Date(),
+  "satellites": 7,
+  "fix": 1
 });
+}
+
+if (process.env.BOARD == "EMSCRIPTEN") {
+  setInterval(test, 1000);
+} else {
+  Bangle.setGPSPower(1);
+  Bangle.on('GPS', gpsTime);
+}
 
 setInterval(function() {
   g.drawImage(img,48,48,{scale:1.5,rotate:Math.sin(getTime()*2)/2});

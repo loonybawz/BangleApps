@@ -219,6 +219,7 @@
     "version":"0.03",
     "description": "Update the Bangle.js's clock based on the time from the GPS receiver",
     "tags": "tool,gps",
+    "allow_emulator": true,
     "storage": [
       {"name":"gpstime.app.js","url":"gpstime.js"},
       {"name":"gpstime.img","url":"gpstime-icon.js","evaluate":true}
