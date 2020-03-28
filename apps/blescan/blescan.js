@@ -26,12 +26,12 @@ function scan() {
 
         // Only display devices that advertise a name
 
-        if (device.name) {
+        if (device.shortName) {
           // Remove no devices found message if it is present
           if (menu[NODEVICE]) {
             delete menu[NODEVICE];
           }
-          menu[device.name] = {
+          menu[device.shortName] = {
             value : device.rssi,
             onchange : () => {}
           };
